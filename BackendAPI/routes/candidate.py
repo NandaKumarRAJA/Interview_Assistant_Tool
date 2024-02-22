@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, Query,UploadF
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from config.db import conn, filter
+from routes.createResume import convert_docx_to_pdf
 from schemas.candidate import CandidateEntity, CandidatesEntity
 from docx import Document
 from models.candidate import CreateCandidate 
@@ -230,7 +231,6 @@ async def delete_candidate(candidate_id: str):
  
 
 
- 
 @Candidate.get("/filtered-candidates")
 async def get_filtered_candidates(
     total_experience: int = Query(None, title="Total Experience", description="Total Experience"),

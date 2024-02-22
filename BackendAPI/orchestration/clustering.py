@@ -47,15 +47,11 @@ def gemini_llm_call_for_clustering(model, resume):  # Define as async function
             response = model.generate_content(updated_prompt)
             string_text = to_markdown(response.text)
             json_data = parse_json_string(string_text)
-            print("----------------------------------------------------------")
-            print(json_data)
-            print("----------------------------------------------------------")
 
             results.append(json_data)
             
         except Exception as e:
                  print(f"Error processing resume: {str(e)}")
-                 print(f"{resume_data.profile_info.email} is not processed")
                  raise
     return results
     
@@ -67,19 +63,6 @@ def load_gemini_pro_model_task():  # Define as async function
     model = genai.GenerativeModel(cst.GEMINI_MODEL)
     return model
 
-
-# @task(name="Insert into Database", retries=5)
-# def insert_into_database(resumes):  
-#     try:
-#         if resumes:
-#             db_client.insert(db_name=cst.DATABASE_NAME, collection_name=cst.UNIQUE_RESUME_COLLECTION, data=resumes)
-#             logging.info("Resumes inserted into the database successfully.")
-#         return {"status": "success"}
-#     except Exception as e:
-#         logging.error(f"Error while inserting into Database: {str(e)}")
-#         return {"status": "error", "message": str(e)}
-
-# with Flow("Resume Ingestion Flow") as flow:
 @task(name="unique resume filtering", retries=5)
 def process_resumes(resume_list):
     unique_resumes = []

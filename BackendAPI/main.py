@@ -12,6 +12,7 @@ from routes.resumeValidation import resumeValidator
 from routes.interviewSchedule import interviewSchedule
 from routes.InterviewVerdict import interviewVerdict
 from routes.createResume import Resume
+from routes.updatedProfiles import updatedProfiles
 
 from routes.data_ingestion import dataingestion
 
@@ -51,6 +52,7 @@ app.include_router(InterviewValidation)
 app.include_router(interviewVerdict)
 app.include_router(interviewSchedule)
 app.include_router(Resume)
+app.include_router(updatedProfiles)
 # app.include_router(KaniniFormat)
 
 app.include_router(dataingestion)
